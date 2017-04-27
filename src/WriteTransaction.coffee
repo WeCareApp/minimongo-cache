@@ -1,4 +1,5 @@
 NullTransaction = require './NullTransaction'
+ReactDOM = require'./../../react-dom'
 
 class WriteTransaction extends NullTransaction
   constructor: (@db) ->
@@ -43,7 +44,7 @@ class WriteTransaction extends NullTransaction
     @dirtyIds = {}
     @queued = false
 
-    @db.batchedUpdates =>
+    ReactDOM.unstable_batchedUpdates =>
       @db.withTransaction new ReadOnlyTransaction(), =>
         if @db.debug
           traces = @traces
