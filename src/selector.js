@@ -105,7 +105,7 @@ var compileValueSelector = function (valueSelector) {
         operand, valueSelector.$options));
     });
     return function (value) {
-      return _.all(operatorFunctions, function (f) {
+      return _.every(operatorFunctions, function (f) {
         return f(value);
       });
     };
@@ -128,7 +128,7 @@ var LOGICAL_OPERATORS = {
     var subSelectorFunctions = _.map(
       subSelector, compileDocumentSelector);
     return function (doc) {
-      return _.all(subSelectorFunctions, function (f) {
+      return _.every(subSelectorFunctions, function (f) {
         return f(doc);
       });
     };
@@ -152,7 +152,7 @@ var LOGICAL_OPERATORS = {
     var subSelectorFunctions = _.map(
       subSelector, compileDocumentSelector);
     return function (doc) {
-      return _.all(subSelectorFunctions, function (f) {
+      return _.every(subSelectorFunctions, function (f) {
         return !f(doc);
       });
     };
@@ -187,7 +187,7 @@ var VALUE_OPERATORS = {
     return function (value) {
       if (!isArray(value))
         return false;
-      return _.all(operand, function (operandElt) {
+      return _.every(operand, function (operandElt) {
         return _.any(value, function (valueElt) {
           return LocalCollection._f._equal(operandElt, valueElt);
         });
@@ -599,7 +599,7 @@ var compileDocumentSelector = function (docSelector) {
 
 
   return function (doc) {
-    return _.all(perKeySelectors, function (f) {
+    return _.every(perKeySelectors, function (f) {
       return f(doc);
     });
   };
